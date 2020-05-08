@@ -203,6 +203,8 @@ extension TaskListViewController: ORKTaskViewControllerDelegate {
         switch reason {
         case .completed, .discarded, .failed, .saved:
             self.dismiss(animated: false, completion: nil)
+        @unknown default:
+            fatalError("Unkown completion state")
         }
     }
 }
