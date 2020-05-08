@@ -215,13 +215,13 @@
             phaseString = @"stationary";
             break;
         case UITouchPhaseRegionEntered:
-            phaseString = @"regionEntered";
+            
             break;
         case UITouchPhaseRegionMoved:
-            phaseString = @"regionMoved";
+            
             break;
         case UITouchPhaseRegionExited:
-            phaseString = @"regionExited";
+            
             break;
     }
     
