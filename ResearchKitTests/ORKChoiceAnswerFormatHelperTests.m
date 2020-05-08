@@ -69,6 +69,19 @@
     return choices;
 }
 
+- (NSArray *)buttonChoices {
+    
+    static NSArray *choices = nil;
+    
+    if (choices == nil) {
+        choices = @[[ORKButtonChoice choiceWithButton:nil text:@"choice 01" value:@"c1"],
+                    [ORKButtonChoice choiceWithButton:nil text:@"choice 02" value:@"c2"],
+                    [ORKButtonChoice choiceWithButton:nil text:@"choice 03" value:@"c3"]];
+    }
+    
+    return choices;
+}
+
 - (void)testCount {
    
     {
@@ -146,6 +159,25 @@
         }];
     }
 }
+
+- (void)testButtonChoice {
+    {
+        NSArray *buttonChoices = [self buttonChoices];
+        
+        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithButtonChoices:buttonChoices];
+        
+        
+        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        
+        [buttonChoices enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            ORKButtonChoice *tc = obj;
+            ORKButtonChoice *tc2 = [formatHelper buttonChoiceAtIndex:idx];
+            XCTAssertEqual(tc, tc2, @"");
+            XCTAssertNil([formatHelper textChoiceAtIndex:idx],@"");
+        }];
+    }
+}
+
 
 - (void)verifyAnswerForSelectedIndexes:(ORKChoiceAnswerFormatHelper *)formatHelper choices:(NSArray *)choices {
     NSMutableArray *indexArray = [NSMutableArray new];
@@ -241,6 +273,16 @@
         ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [self verifyAnswerForSelectedIndexes:formatHelper choices:imageChoices];
+    }
+    
+    {
+        NSArray *buttonChoices = [self buttonChoices];
+        
+        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithButtonChoices:buttonChoices];
+        
+        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        
+        [self verifyAnswerForSelectedIndexes:formatHelper choices:buttonChoices];
     }
 }
 
@@ -345,6 +387,17 @@
         ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
         
         [self verifySelectedIndexesForAnswer:formatHelper choices:imageChoices];
+        
+    }
+    
+    {
+        NSArray *buttonChoices = [self buttonChoices];
+        
+        ORKAnswerFormat *answerFormat = [ORKAnswerFormat choiceAnswerFormatWithButtonChoices:buttonChoices];
+        
+        ORKChoiceAnswerFormatHelper *formatHelper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:answerFormat];
+        
+        [self verifySelectedIndexesForAnswer:formatHelper choices:buttonChoices];
         
     }
 }

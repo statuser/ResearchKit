@@ -35,6 +35,7 @@
 #import "ORKCaption1Label.h"
 #import "ORKFormTextView.h"
 #import "ORKImageSelectionView.h"
+#import "ORKButtonSelectionView.h"
 #import "ORKLocationSelectionView.h"
 #import "ORKSESSelectionView.h"
 #import "ORKPicker.h"
@@ -1343,6 +1344,69 @@ static const CGFloat InlineFormItemLabelToTextFieldPadding = 3.0;
 #pragma mark ORKImageSelectionViewDelegate
 
 - (void)selectionViewSelectionDidChange:(ORKImageSelectionView *)view {
+    [self ork_setAnswer:view.answer];
+    [self inputValueDidChange];
+}
+
+#pragma mark recover answer
+
+- (void)answerDidChange {
+    [super answerDidChange];
+    [_selectionView setAnswer:self.answer];
+}
+
+@end
+
+#pragma mark - ORKFormItemButtonSelectionCell
+
+@interface ORKFormItemButtonSelectionCell () <ORKButtonSelectionViewDelegate>
+
+@end
+
+
+@implementation ORKFormItemButtonSelectionCell {
+    ORKButtonSelectionView *_selectionView;
+}
+
+- (void)cellInit {
+    // Subclasses should override this
+    
+    self.labelLabel.text = nil;
+    
+    _selectionView = [[ORKButtonSelectionView alloc] initWithButtonChoiceAnswerFormat:(ORKButtonChoiceAnswerFormat *)self.formItem.answerFormat
+                                                                             answer:self.answer];
+    _selectionView.delegate = self;
+    
+    self.contentView.layoutMargins = UIEdgeInsetsMake(VerticalMargin, ORKSurveyItemMargin, VerticalMargin, ORKSurveyItemMargin);
+    
+    [self.containerView addSubview:_selectionView];
+    [self setUpConstraints];
+    
+    [super cellInit];
+}
+
+- (void)setUpConstraints {
+    NSMutableArray *constraints = [NSMutableArray new];
+    
+    NSDictionary *views = @{@"selectionView": _selectionView };
+    ORKEnableAutoLayoutForViews(views.allValues);
+    [constraints addObjectsFromArray:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[selectionView]-|"
+                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                             metrics:nil
+                                               views:views]];
+    [constraints addObjectsFromArray:
+     [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[selectionView]-|"
+                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                             metrics:nil
+                                               views:views]];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+#pragma mark ORKButtonSelectionViewDelegate
+
+- (void)selectionViewSelectionDidChange:(ORKButtonSelectionView *)view {
     [self ork_setAnswer:view.answer];
     [self inputValueDidChange];
 }

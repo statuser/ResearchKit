@@ -29,11 +29,12 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+@import UIKit;
+#import "ORKSurveyAnswerCell.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ORKSurveyAnswerCellForButtonSelection <NSObject>
+@interface ORKSurveyAnswerCellForButtonSelection : ORKSurveyAnswerCell
 
 @end
 

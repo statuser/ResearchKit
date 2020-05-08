@@ -38,7 +38,9 @@
 #import "ORKHelpers_Internal.h"
 #import "ORKSkin.h"
 
+#import "ORKChoiceButtonView.h"
 
+/*
 @interface ORKChoiceButtonView : UIView
 
 - (instancetype)initWithImageChoice:(ORKImageChoice *)choice;
@@ -128,7 +130,7 @@
 }
 
 @end
-
+*/
 
 static const CGFloat SpacerWidth = 10.0;
 static const CGFloat SpacerHeight = 5.0;

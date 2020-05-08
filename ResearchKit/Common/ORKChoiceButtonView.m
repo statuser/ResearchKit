@@ -29,7 +29,7 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "ORKButtonChoiceView.h"
+#import "ORKChoiceButtonView.h"
 
 
 @implementation ORKChoiceButtonView

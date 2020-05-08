@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class ORKValuePickerAnswerFormat;
 @class ORKMultipleValuePickerAnswerFormat;
 @class ORKImageChoiceAnswerFormat;
+@class ORKButtonChoiceAnswerFormat;
 @class ORKTextChoiceAnswerFormat;
 @class ORKBooleanAnswerFormat;
 @class ORKNumericAnswerFormat;
@@ -60,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ORKTextChoice;
 @class ORKImageChoice;
+@class ORKButtonChoice;
 
 /**
  The `ORKAnswerFormat` class is the abstract base class for classes that describe the
@@ -144,6 +146,11 @@ ORK_CLASS_AVAILABLE
 + (ORKImageChoiceAnswerFormat *)choiceAnswerFormatWithImageChoices:(NSArray<ORKImageChoice *> *)imageChoices
                                                              style:(ORKChoiceAnswerStyle)style
                                                           vertical:(BOOL)vertical;
+
++ (ORKButtonChoiceAnswerFormat *)choiceAnswerFormatWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices;
++ (ORKButtonChoiceAnswerFormat *)choiceAnswerFormatWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices
+                                                               style:(ORKChoiceAnswerStyle)style
+                                                            vertical:(BOOL)vertical;
 
 + (ORKTextChoiceAnswerFormat *)choiceAnswerFormatWithStyle:(ORKChoiceAnswerStyle)style
                                                textChoices:(NSArray<ORKTextChoice *> *)textChoices;
@@ -868,6 +875,64 @@ ORK_CLASS_AVAILABLE
 
 @end
 
+/**
+ The `ORKButtonChoiceAnswerFormat` class represents an answer format that lets participants choose
+ one button from a fixed set of UIButtons in a single choice question.
+ 
+ For example, you might use the button choice answer format to represent a complicated description with
+custom formating or somethignlike a choice-based conjoint question.
+ 
+ The button choice answer format produces an `ORKChoiceQuestionResult` object.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKButtonChoiceAnswerFormat : ORKAnswerFormat
+
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ Returns an initialized button choice answer format using the specified array of buttons.
+ 
+ @param buttonChoices    Array of `ORKButtonChoice` objects.
+ 
+ @return An initialized button choice answer format.
+ */
+- (instancetype)initWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices;
+
+/**
+ Returns an initialized button choice answer format using the specified array of buttons.
+ 
+ @param buttonChoices    Array of `ORKButtonChoice` objects.
+ @param style           The style of question, such as single or multiple choice.
+ @param vertical        Pass `YES` to stack images vertically; for the default horizontal
+ layout, pass `NO`.
+ 
+ @return An initialized button choice answer format.
+ */
+- (instancetype)initWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices
+                               style:(ORKChoiceAnswerStyle)style
+                            vertical:(BOOL)vertical NS_DESIGNATED_INITIALIZER;
+
+/**
+ An array of `ORKButtonChoice` objects that represent the available choices. (read-only)
+ 
+ The text of the currently selected choice is displayed on screen. The text for
+ each choice is spoken by VoiceOver when an button is highlighted.
+ */
+@property (copy, readonly) NSArray<ORKButtonChoice *> *buttonChoices;
+
+/**
+ The style of the question (that is, single or multiple choice).
+ */
+@property (readonly) ORKChoiceAnswerStyle style;
+
+/**
+ A Boolean value indicating whether the choices are stacked vertically. (read-only)
+ */
+@property (readonly, getter=isVertical) BOOL vertical;
+
+@end
+
 
 /**
  The `ORKTextChoiceAnswerFormat` class represents an answer format that lets participants choose
@@ -1235,6 +1300,79 @@ ORK_CLASS_AVAILABLE
 
 @end
 
+
+/**
+ The `ORKButtonChoice` class defines a choice that can
+ be included in an `ORKButtonChoiceAnswerFormat` object.
+ 
+ Typically, button choices are displayed in a horizontal row, so you need to use appropriate sizes.
+ For example, when five button choices are displayed in an `ORKButtonChoiceAnswerFormat`, button sizes
+ of about 45 to 60 points allow the buttons to look good in apps that run on all versions of iPhone.
+ 
+ The text that describes an button choice should be reasonably short. However, only the text for the
+ currently selected button choice is displayed, so text that wraps to more than one line
+ is supported.
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKButtonChoice : NSObject <NSSecureCoding, NSCopying>
+
++ (instancetype)new NS_UNAVAILABLE;
+- (instancetype)init NS_UNAVAILABLE;
+
+/**
+ Returns an button choice that includes the specified buttons and text.
+ 
+ @param normal      The button to display in the unselected state.
+ @param text        The text to display when the button is selected.
+ @param value       The value to record in a result object when the button is selected.
+ 
+ @return An button choice instance.
+ */
++ (instancetype)choiceWithButton:(nullable UIButton *)button
+                                 text:(nullable NSString *)text
+                                value:(id<NSCopying, NSCoding, NSObject>)value;
+
+/**
+ Returns an initialized button choice using the specified buttons and text.
+ 
+ This method is the designated initializer.
+ 
+ @param normal      The button to display in the unselected state.
+ @param text        The text to display when the button is selected.
+ @param value       The value to record in a result object when the button is selected.
+ 
+ @return An initialized button choice.
+ */
+- (instancetype)initWithButton:(nullable UIButton *)button
+                               text:(nullable NSString *)text
+                              value:(id<NSCopying, NSCoding, NSObject>)value NS_DESIGNATED_INITIALIZER;
+
+/**
+ The button to display when the choice is not selected. (read-only)
+ 
+ The size of the unselected button depends on the number of choices you need to display. As a
+ general rule, it's recommended that you start by creating an button that measures 44 x 44 points,
+ and adjust it if necessary.
+ */
+@property (strong, readonly) UIButton *button;
+
+/**
+ The text to display when the button is selected, in a localized string. (read-only)
+ 
+ Note that the text you supply may be spoken by VoiceOver even when the item is not selected.
+  */
+@property (copy, readonly, nullable) NSString *text;
+
+/**
+ The value to return when the button is selected. (read-only)
+ 
+ The value of this property is expected to be a scalar property list type, such as `NSNumber` or
+ `NSString`. If no value is provided, the index of the option in the `ORKButtonChoiceAnswerFormat`
+ options list is used.
+ */
+@property (copy, readonly) id<NSCopying, NSCoding, NSObject> value;
+
+@end
 
 /**
  The style of answer for an `ORKNumericAnswerFormat` object, which controls the keyboard that is

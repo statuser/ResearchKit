@@ -29,8 +29,20 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ORKButtonChoiceLabel_h
-#define ORKButtonChoiceLabel_h
+@import UIKit;
+#import "ORKLabel.h"
 
 
-#endif /* ORKButtonChoiceLabel_h */
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ Text label under button answer option icon
+ */
+ORK_CLASS_AVAILABLE
+@interface ORKButtonChoiceLabel : ORKLabel
+
+@property (nonatomic, copy, nullable) NSArray *textArray;
+
+@end
+
+NS_ASSUME_NONNULL_END

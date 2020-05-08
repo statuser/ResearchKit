@@ -1100,6 +1100,8 @@ static const CGFloat DelayBeforeAutoScroll = 0.25;
                 case ORKQuestionTypeMultipleChoice: {
                     if ([formItem.impliedAnswerFormat isKindOfClass:[ORKImageChoiceAnswerFormat class]]) {
                         class = [ORKFormItemImageSelectionCell class];
+                    } else if([formItem.impliedAnswerFormat isKindOfClass:[ORKButtonChoiceAnswerFormat class]]) {
+                        class = [ORKFormItemButtonSelectionCell class];
                     } else if ([formItem.impliedAnswerFormat isKindOfClass:[ORKValuePickerAnswerFormat class]]) {
                         class = [ORKFormItemPickerCell class];
                     }

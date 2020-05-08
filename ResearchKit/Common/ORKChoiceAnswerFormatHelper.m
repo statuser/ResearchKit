@@ -57,6 +57,9 @@
         } else if ([answerFormat isKindOfClass:[ORKImageChoiceAnswerFormat class]]) {
             ORKImageChoiceAnswerFormat *imageChoiceAnswerFormat = (ORKImageChoiceAnswerFormat *)answerFormat;
             _choices = imageChoiceAnswerFormat.imageChoices;
+        } else if ([answerFormat isKindOfClass:[ORKButtonChoiceAnswerFormat class]]) {
+            ORKButtonChoiceAnswerFormat *buttonChoiceAnswerFormat = (ORKButtonChoiceAnswerFormat *)answerFormat;
+            _choices = buttonChoiceAnswerFormat.buttonChoices;
         } else if ([answerFormat isKindOfClass:[ORKTextScaleAnswerFormat class]]) {
             ORKTextScaleAnswerFormat *textScaleAnswerFormat = (ORKTextScaleAnswerFormat *)answerFormat;
             _choices = textScaleAnswerFormat.textChoices;
@@ -83,6 +86,11 @@
 - (ORKImageChoice *)imageChoiceAtIndex:(NSUInteger)index {
     id<ORKAnswerOption> option = [self answerOptionAtIndex:index];
     return option && [option isKindOfClass:[ORKImageChoice class]] ? (ORKImageChoice *) option : nil;
+}
+
+- (ORKButtonChoice *)buttonChoiceAtIndex:(NSUInteger)index {
+    id<ORKAnswerOption> option = [self answerOptionAtIndex:index];
+    return option && [option isKindOfClass:[ORKButtonChoice class]] ? (ORKButtonChoice *) option : nil;
 }
 
 - (ORKTextChoice *)textChoiceAtIndex:(NSUInteger)index {

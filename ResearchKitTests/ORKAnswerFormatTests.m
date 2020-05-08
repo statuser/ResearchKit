@@ -476,6 +476,29 @@
     XCTAssertThrowsSpecificNamed([ORKAnswerFormat choiceAnswerFormatWithImageChoices:wrongChoices], NSException, NSInvalidArgumentException, "Should throw NSInvalidArgumentException since choices were not ORKImageChoice objects");
 }
 
+- (void)testButtonChoiceAnswerFormat {
+    
+    UIButton *buttonOne = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [buttonOne setFrame:CGRectMake(5, 5, 50, 50)];
+    [buttonOne setTitle:@"Button 1" forState:UIControlStateNormal];
+    UIButton *buttonTwo = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [buttonTwo setFrame:CGRectMake(5, 5, 50, 50)];
+    [buttonTwo setTitle:@"Button 2" forState:UIControlStateNormal];
+    
+    ORKButtonChoice *choiceOne = [ORKButtonChoice choiceWithButton:buttonOne text:@"Selected 1" value:@"ButtonTwo"];
+    ORKButtonChoice *choiceTwo = [ORKButtonChoice choiceWithButton:buttonTwo text:@"Selected 2" value:@"ButtonOne"];
+    
+    NSArray *choices = [NSArray arrayWithObjects:choiceOne, choiceTwo, nil];
+    ORKButtonChoiceAnswerFormat *answerChoice = [ORKAnswerFormat choiceAnswerFormatWithButtonChoices:choices];
+    
+    XCTAssertEqual([[answerChoice buttonChoices] objectAtIndex:0], choiceOne);
+    XCTAssertEqual([[answerChoice buttonChoices] objectAtIndex:1], choiceTwo);
+    
+    NSArray *wrongChoices = [NSArray arrayWithObjects:@"Wrong Choice One", @"Wrong Choice Two", nil];
+    
+    XCTAssertThrowsSpecificNamed([ORKAnswerFormat choiceAnswerFormatWithButtonChoices:wrongChoices], NSException, NSInvalidArgumentException, "Should throw NSInvalidArgumentException since choices were not ORKButtonChoice objects");
+}
+
 - (void)testTextAnswerFormat {
     ORKTextAnswerFormat *answerFormat = [ORKAnswerFormat textAnswerFormatWithMaximumLength:10];
 

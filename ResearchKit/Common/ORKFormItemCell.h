@@ -104,6 +104,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface ORKFormItemButtonSelectionCell : ORKFormItemCell
+
+@end
+
 
 @interface ORKFormItemPickerCell : ORKFormItemTextFieldBasedCell
 

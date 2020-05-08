@@ -826,6 +826,11 @@
 		E26E32D622E75FB7004F42EC /* Noise.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7118AC5920BF6A0000D7A6BB /* Noise.wav */; };
 		E26E32D722E75FBF004F42EC /* Window.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7118AC5B20BF6A1200D7A6BB /* Window.wav */; };
 		E2EE530022E7735700F34987 /* VolumeCalibration.wav in Resources */ = {isa = PBXBuildFile; fileRef = E2EE52FF22E7735600F34987 /* VolumeCalibration.wav */; };
+		F14AF45C2465D7400006FDA5 /* ORKButtonChoiceLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F14AF45B2465D7400006FDA5 /* ORKButtonChoiceLabel.m */; };
+		F14AF45E2465D8380006FDA5 /* ORKSurveyAnswerCellForButtonSelection.h in Headers */ = {isa = PBXBuildFile; fileRef = F14AF45D2465D8380006FDA5 /* ORKSurveyAnswerCellForButtonSelection.h */; };
+		F14AF4602465D8A80006FDA5 /* ORKSurveyAnswerCellForButtonSelection.m in Sources */ = {isa = PBXBuildFile; fileRef = F14AF45F2465D8A80006FDA5 /* ORKSurveyAnswerCellForButtonSelection.m */; };
+		F14AF4652465DF730006FDA5 /* ORKButtonSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = F14AF4642465DF730006FDA5 /* ORKButtonSelectionView.m */; };
+		F14AF4672465ED130006FDA5 /* ORKChoiceButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = F14AF4662465ED130006FDA5 /* ORKChoiceButtonView.m */; };
 		FA7A9D2B1B082688005A2BEA /* ORKConsentDocumentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */; };
 		FA7A9D2F1B083DD3005A2BEA /* ORKConsentSectionFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */; };
 		FA7A9D301B083DD3005A2BEA /* ORKConsentSectionFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = FA7A9D2E1B083DD3005A2BEA /* ORKConsentSectionFormatter.m */; };
@@ -1767,6 +1772,14 @@
 		D45852081AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKImageCaptureCameraPreviewView.h; sourceTree = "<group>"; };
 		D45852091AF6CCFA00A2DE13 /* ORKImageCaptureCameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKImageCaptureCameraPreviewView.m; sourceTree = "<group>"; };
 		E2EE52FF22E7735600F34987 /* VolumeCalibration.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = VolumeCalibration.wav; sourceTree = "<group>"; };
+		F14AF4562465D69E0006FDA5 /* ORKButtonChoiceLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKButtonChoiceLabel.h; sourceTree = "<group>"; };
+		F14AF45B2465D7400006FDA5 /* ORKButtonChoiceLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKButtonChoiceLabel.m; sourceTree = "<group>"; };
+		F14AF45D2465D8380006FDA5 /* ORKSurveyAnswerCellForButtonSelection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKSurveyAnswerCellForButtonSelection.h; sourceTree = "<group>"; };
+		F14AF45F2465D8A80006FDA5 /* ORKSurveyAnswerCellForButtonSelection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKSurveyAnswerCellForButtonSelection.m; sourceTree = "<group>"; };
+		F14AF4632465DE920006FDA5 /* ORKButtonSelectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKButtonSelectionView.h; sourceTree = "<group>"; };
+		F14AF4642465DF730006FDA5 /* ORKButtonSelectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKButtonSelectionView.m; sourceTree = "<group>"; };
+		F14AF4662465ED130006FDA5 /* ORKChoiceButtonView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ORKChoiceButtonView.m; sourceTree = "<group>"; };
+		F14AF4682465EF4C0006FDA5 /* ORKChoiceButtonView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ORKChoiceButtonView.h; sourceTree = "<group>"; };
 		FA7A9D2A1B082688005A2BEA /* ORKConsentDocumentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentDocumentTests.m; sourceTree = "<group>"; };
 		FA7A9D2D1B083DD3005A2BEA /* ORKConsentSectionFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ORKConsentSectionFormatter.h; sourceTree = "<group>"; };
 		FA7A9D2E1B083DD3005A2BEA /* ORKConsentSectionFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ORKConsentSectionFormatter.m; sourceTree = "<group>"; };
@@ -2760,7 +2773,9 @@
 				86C40B881A8D7C5C00081FAC /* ORKHeadlineLabel.h */,
 				86C40B891A8D7C5C00081FAC /* ORKHeadlineLabel.m */,
 				86C40B901A8D7C5C00081FAC /* ORKImageChoiceLabel.h */,
+				F14AF4562465D69E0006FDA5 /* ORKButtonChoiceLabel.h */,
 				86C40B911A8D7C5C00081FAC /* ORKImageChoiceLabel.m */,
+				F14AF45B2465D7400006FDA5 /* ORKButtonChoiceLabel.m */,
 				86C40B971A8D7C5C00081FAC /* ORKLabel.h */,
 				86C40B981A8D7C5C00081FAC /* ORKLabel.m */,
 				10BAA2C81B5FCB4F004FE478 /* ORKProgressView.h */,
@@ -3027,6 +3042,8 @@
 				866F86001A96CBF3007B282C /* ORKSurveyAnswerCell.m */,
 				86C40BC51A8D7C5C00081FAC /* ORKSurveyAnswerCellForImageSelection.h */,
 				86C40BC61A8D7C5C00081FAC /* ORKSurveyAnswerCellForImageSelection.m */,
+				F14AF45F2465D8A80006FDA5 /* ORKSurveyAnswerCellForButtonSelection.m */,
+				F14AF45D2465D8380006FDA5 /* ORKSurveyAnswerCellForButtonSelection.h */,
 				86C40BC71A8D7C5C00081FAC /* ORKSurveyAnswerCellForNumber.h */,
 				86C40BC81A8D7C5C00081FAC /* ORKSurveyAnswerCellForNumber.m */,
 				86C40BC91A8D7C5C00081FAC /* ORKSurveyAnswerCellForScale.h */,
@@ -3056,6 +3073,10 @@
 				86B781BA1AA668ED00688151 /* ORKValuePicker.m */,
 				86C40B581A8D7C5B00081FAC /* ORKImageSelectionView.h */,
 				86C40B591A8D7C5B00081FAC /* ORKImageSelectionView.m */,
+				F14AF4662465ED130006FDA5 /* ORKChoiceButtonView.m */,
+				F14AF4682465EF4C0006FDA5 /* ORKChoiceButtonView.h */,
+				F14AF4642465DF730006FDA5 /* ORKButtonSelectionView.m */,
+				F14AF4632465DE920006FDA5 /* ORKButtonSelectionView.h */,
 				86C40B671A8D7C5B00081FAC /* ORKAnswerTextField.h */,
 				86C40B681A8D7C5B00081FAC /* ORKAnswerTextField.m */,
 				86C40B691A8D7C5B00081FAC /* ORKAnswerTextView.h */,
@@ -3975,6 +3996,7 @@
 				865EA16C1ABA1BE20037C68E /* ORKSurveyAnswerCellForPicker.h in Headers */,
 				86C40C121A8D7C5C00081FAC /* ORKActiveStepQuantityView.h in Headers */,
 				86C40CCC1A8D7C5C00081FAC /* ORKImageSelectionView.h in Headers */,
+				F14AF45E2465D8380006FDA5 /* ORKSurveyAnswerCellForButtonSelection.h in Headers */,
 				BA2645E62301571800D00B73 /* ORKReviewViewController.h in Headers */,
 				866DA5251D63D04700C9AF3F /* ORKHealthSampleQueryOperation.h in Headers */,
 				2441034F1B966D4C00EEAB0C /* ORKPasscodeViewController.h in Headers */,
@@ -4509,6 +4531,7 @@
 				86C40D8C1A8D7C5C00081FAC /* ORKSkin.m in Sources */,
 				86C40D221A8D7C5C00081FAC /* ORKFormStep.m in Sources */,
 				7118AC7820BF6A7800D7A6BB /* ORKSpeechInNoiseStep.m in Sources */,
+				F14AF4602465D8A80006FDA5 /* ORKSurveyAnswerCellForButtonSelection.m in Sources */,
 				BA2FE3EF20B109C600AAC231 /* ORKAmslerGridResult.m in Sources */,
 				10FF9ACC1B79F22900ECB5B4 /* ORKHolePegTestRemoveStepViewController.m in Sources */,
 				86C40CD61A8D7C5C00081FAC /* ORKTableContainerView.m in Sources */,
@@ -4530,6 +4553,7 @@
 				86C40D821A8D7C5C00081FAC /* ORKSelectionSubTitleLabel.m in Sources */,
 				FF919A441E81B904005C2A1E /* ORKPSATResult.m in Sources */,
 				86C40DCC1A8D7C5C00081FAC /* ORKTaskViewController.m in Sources */,
+				F14AF45C2465D7400006FDA5 /* ORKButtonChoiceLabel.m in Sources */,
 				86C40E061A8D7C5C00081FAC /* ORKConsentLearnMoreViewController.m in Sources */,
 				BABBB19E2093299A00CB29E5 /* ORKSurveyCardHeaderView.m in Sources */,
 				86C40D7A1A8D7C5C00081FAC /* ORKScaleSlider.m in Sources */,
@@ -4614,6 +4638,7 @@
 				BCB6E6671B7D535F000D5B34 /* ORKXAxisView.m in Sources */,
 				00C2668B2302244300337E0B /* ORKCustomStepViewController.m in Sources */,
 				BA8078F4224AC8AA0013B554 /* ORKStepContainerView.m in Sources */,
+				F14AF4652465DF730006FDA5 /* ORKButtonSelectionView.m in Sources */,
 				71769E322088260B00A19914 /* ORKdBHLToneAudiometryOnboardingStepViewController.m in Sources */,
 				FF919A3C1E81AF1D005C2A1E /* ORKFileResult.m in Sources */,
 				147503BC1AEE807C004B17F3 /* ORKToneAudiometryStepViewController.m in Sources */,
@@ -4675,6 +4700,7 @@
 				86C40C6C1A8D7C5C00081FAC /* CMDeviceMotion+ORKJSONDictionary.m in Sources */,
 				86C40DF01A8D7C5C00081FAC /* UIResponder+ResearchKit.m in Sources */,
 				65EEE16721B130D9007858E8 /* ORKTouchAbilityLongPressContentView.m in Sources */,
+				F14AF4672465ED130006FDA5 /* ORKChoiceButtonView.m in Sources */,
 				865EA16D1ABA1BE20037C68E /* ORKSurveyAnswerCellForPicker.m in Sources */,
 				BF9155AA1BDE8DA9007FA459 /* ORKWaitStepView.m in Sources */,
 				86C40D261A8D7C5C00081FAC /* ORKFormStepViewController.m in Sources */,

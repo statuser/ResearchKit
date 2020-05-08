@@ -1,4 +1,3 @@
-//
 /*
  Copyright (c) 2020, Apple Inc. All rights reserved.
  
@@ -29,8 +28,29 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ORKButtonSelectionView_h
-#define ORKButtonSelectionView_h
+@import UIKit;
+#import "ORKAnswerFormat_Internal.h"
 
 
-#endif /* ORKButtonSelectionView_h */
+NS_ASSUME_NONNULL_BEGIN
+
+@class ORKButtonSelectionView;
+
+@protocol ORKButtonSelectionViewDelegate <NSObject>
+
+- (void)selectionViewSelectionDidChange:(ORKButtonSelectionView *)view;
+
+@end
+
+
+@interface ORKButtonSelectionView : UIView
+
+- (instancetype)initWithButtonChoiceAnswerFormat:(ORKButtonChoiceAnswerFormat *)answerFormat answer:(nullable id)answer;
+
+@property (nonatomic, weak, nullable) id<ORKButtonSelectionViewDelegate> delegate;
+
+@property (nonatomic, strong, nullable) id answer;
+
+@end
+
+NS_ASSUME_NONNULL_END

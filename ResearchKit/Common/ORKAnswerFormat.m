@@ -342,6 +342,18 @@ static NSNumberFormatterStyle ORKNumberFormattingStyleConvert(ORKNumberFormattin
                                                            vertical:vertical];
 }
 
++ (ORKButtonChoiceAnswerFormat *)choiceAnswerFormatWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices {
+    return [[ORKButtonChoiceAnswerFormat alloc] initWithButtonChoices:buttonChoices];
+}
+
++ (ORKButtonChoiceAnswerFormat *)choiceAnswerFormatWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices
+                                                             style:(ORKChoiceAnswerStyle)style
+                                                          vertical:(BOOL)vertical {
+    return [[ORKButtonChoiceAnswerFormat alloc] initWithButtonChoices:buttonChoices
+                                                              style:style
+                                                           vertical:vertical];
+}
+
 + (ORKTextChoiceAnswerFormat *)choiceAnswerFormatWithStyle:(ORKChoiceAnswerStyle)style
                                                textChoices:(NSArray<ORKTextChoice *> *)textChoices {
     return [[ORKTextChoiceAnswerFormat alloc] initWithStyle:style textChoices:textChoices];
@@ -937,6 +949,113 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
 
 @end
 
+#pragma mark - ORKButtonChoiceAnswerFormat
+
+@interface ORKButtonChoiceAnswerFormat () {
+    ORKChoiceAnswerFormatHelper *_helper;
+    
+}
+
+@end
+
+
+@implementation ORKButtonChoiceAnswerFormat
+
++ (instancetype)new {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)init {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)initWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices {
+    self = [self initWithButtonChoices:buttonChoices style:ORKChoiceAnswerStyleSingleChoice vertical:NO];
+    return self;
+}
+
+- (instancetype)initWithButtonChoices:(NSArray<ORKButtonChoice *> *)buttonChoices
+                               style:(ORKChoiceAnswerStyle)style
+                            vertical:(BOOL)vertical {
+    self = [super init];
+    if (self) {
+        NSMutableArray *choices = [[NSMutableArray alloc] init];
+        
+        for (NSObject *obj in buttonChoices) {
+            if ([obj isKindOfClass:[ORKButtonChoice class]]) {
+                
+                [choices addObject:obj];
+                
+            } else {
+                @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Options should be instances of ORKButtonChoice" userInfo:@{ @"option": obj }];
+            }
+        }
+        _buttonChoices = choices;
+        _style = style;
+        _vertical = vertical;
+        _helper = [[ORKChoiceAnswerFormatHelper alloc] initWithAnswerFormat:self];
+    }
+    return self;
+}
+
+- (void)validateParameters {
+    [super validateParameters];
+    
+    ork_validateChoices(_buttonChoices);
+}
+
+- (BOOL)isEqual:(id)object {
+    BOOL isParentSame = [super isEqual:object];
+    
+    __typeof(self) castObject = object;
+    return (isParentSame &&
+            ORKEqualObjects(self.buttonChoices, castObject.buttonChoices) &&
+            (_style == castObject.style) &&
+            (_vertical == castObject.vertical));
+}
+
+- (NSUInteger)hash {
+    return super.hash ^ self.buttonChoices.hash ^ _style ^ _vertical;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        ORK_DECODE_OBJ_ARRAY(aDecoder, buttonChoices, ORKButtonChoice);
+        ORK_DECODE_ENUM(aDecoder, style);
+        ORK_DECODE_BOOL(aDecoder, vertical);
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    [super encodeWithCoder:aCoder];
+    ORK_ENCODE_OBJ(aCoder, buttonChoices);
+    ORK_ENCODE_ENUM(aCoder, style);
+    ORK_ENCODE_BOOL(aCoder, vertical);
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (ORKQuestionType)questionType {
+    return (_style == ORKChoiceAnswerStyleSingleChoice) ? ORKQuestionTypeSingleChoice : ORKQuestionTypeMultipleChoice;
+}
+
+- (Class)questionResultClass {
+    return [ORKChoiceQuestionResult class];
+}
+
+- (NSString *)stringForAnswer:(id)answer {
+    return [_helper stringForChoiceAnswer:answer];
+}
+
+- (BOOL)shouldShowDontKnowButton {
+    return NO;
+}
+
+@end
 
 #pragma mark - ORKTextChoiceAnswerFormat
 
@@ -1335,6 +1454,90 @@ static NSArray *ork_processTextChoices(NSArray<ORKTextChoice *> *textChoices) {
 
 @end
 
+#pragma mark - ORKButtonChoice
+
+@implementation ORKButtonChoice {
+    NSString *_text;
+    id<NSCopying, NSCoding, NSObject> _value;
+}
+
++ (instancetype)choiceWithButton:(UIButton *)button text:(NSString *)text value:(id<NSCopying, NSCoding, NSObject>)value {
+    return [[ORKButtonChoice alloc] initWithButton:button text:text value:value];
+}
+
++ (instancetype)new {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)init {
+    ORKThrowMethodUnavailableException();
+}
+
+- (instancetype)initWithButton:(UIButton *)button text:(NSString *)text value:(id<NSCopying,NSCoding,NSObject>)value {
+    self = [super init];
+    if (self) {
+        _text = [text copy];
+        _value = value;
+        _button = button;
+    }
+    return self;
+}
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
+- (instancetype)copyWithZone:(NSZone *)zone {
+    return self;
+}
+
+- (NSString *)text {
+    return _text;
+}
+
+- (id<NSCopying, NSCoding>)value {
+    return _value;
+}
+
+- (BOOL)isEqual:(id)object {
+    if ([self class] != [object class]) {
+        return NO;
+    }
+    
+    // Ignore the task reference - it's not part of the content of the step.
+    
+    __typeof(self) castObject = object;
+    return (ORKEqualObjects(self.text, castObject.text)
+            && ORKEqualObjects(self.value, castObject.value)
+            && ORKEqualObjects(self.button, castObject.button));
+}
+
+- (NSUInteger)hash {
+    // Ignore the task reference - it's not part of the content of the step.
+    return _text.hash ^ _value.hash;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super init];
+    if (self) {
+        ORK_DECODE_OBJ_CLASS(aDecoder, text, NSString);
+        ORK_DECODE_OBJ(aDecoder, value);
+        ORK_DECODE_OBJ_CLASS(aDecoder, button, UIButton);
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder {
+    ORK_ENCODE_OBJ(aCoder, text);
+    ORK_ENCODE_OBJ(aCoder, value);
+    ORK_ENCODE_OBJ(aCoder, button);
+}
+
+- (BOOL)shouldShowDontKnowButton {
+    return NO;
+}
+
+@end
 
 #pragma mark - ORKBooleanAnswerFormat
 

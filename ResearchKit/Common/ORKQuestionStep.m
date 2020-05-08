@@ -174,6 +174,10 @@
     return [[self impliedAnswerFormat] isKindOfClass:[ORKImageChoiceAnswerFormat class]];
 }
 
+- (BOOL)isFormatChoiceWithButtonOptions {
+    return [[self impliedAnswerFormat] isKindOfClass:[ORKButtonChoiceAnswerFormat class]];
+}
+
 - (BOOL)isFormatChoiceValuePicker {
     return [[self impliedAnswerFormat] isKindOfClass:[ORKValuePickerAnswerFormat class]];
 }

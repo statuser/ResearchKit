@@ -29,4 +29,84 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
+#import "ORKSurveyAnswerCellForButtonSelection.h"
+
+#import "ORKButtonSelectionView.h"
+
+#import "ORKAnswerFormat_Internal.h"
+#import "ORKQuestionStep.h"
+
+#import "ORKHelpers_Internal.h"
+#import "ORKSkin.h"
+
+
+@interface ORKSurveyAnswerCellForButtonSelection () <ORKButtonSelectionViewDelegate>
+
+@end
+
+
+@implementation ORKSurveyAnswerCellForButtonSelection {
+    ORKButtonSelectionView *_selectionView;
+}
+
+- (void)prepareView {
+    [super prepareView];
+    
+    _selectionView = [[ORKButtonSelectionView alloc] initWithButtonChoiceAnswerFormat:(ORKButtonChoiceAnswerFormat *)self.step.answerFormat answer:self.answer];
+    _selectionView.delegate = self;
+    _selectionView.frame = self.bounds;
+    
+    [self addSubview:_selectionView];
+    
+    _selectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSMutableArray *constraints = [NSMutableArray new];
+    
+    NSDictionary *views = @{ @"selectionView": _selectionView };
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[selectionView]|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:nil
+                                                                               views:views]];
+    [constraints addObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[selectionView]|"
+                                                                             options:NSLayoutFormatDirectionLeadingToTrailing
+                                                                             metrics:nil
+                                                                               views:views]];
+    
+    NSLayoutConstraint *resistCompressingConstraint = [NSLayoutConstraint constraintWithItem:_selectionView
+                                                                                   attribute:NSLayoutAttributeWidth
+                                                                                   relatedBy:NSLayoutRelationGreaterThanOrEqual
+                                                                                      toItem:nil
+                                                                                   attribute:NSLayoutAttributeNotAnAttribute
+                                                                                  multiplier:1.0
+                                                                                    constant:ORKScreenMetricMaxDimension];
+    resistCompressingConstraint.priority = UILayoutPriorityDefaultHigh;
+    [constraints addObject:resistCompressingConstraint];
+    
+    [NSLayoutConstraint activateConstraints:constraints];
+}
+
+#pragma mark ORKButtonSelectionViewDelegate
+- (void)selectionViewSelectionDidChange:(ORKButtonSelectionView *)view {
+    [self ork_setAnswer:view.answer];
+}
+
+- (void)answerDidChange {
+    [_selectionView setAnswer:self.answer];
+}
+
+- (NSArray *)suggestedCellHeightConstraintsForView:(UIView *)view {
+    return @[];
+}
+
+#pragma mark Accessibility
+
+- (BOOL)isAccessibilityElement {
+    return NO;
+}
+
+- (NSArray *)accessibilityElements {
+    return @[_selectionView];
+}
+
+@end
+
