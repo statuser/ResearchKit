@@ -1059,18 +1059,18 @@ enum TaskListRow: Int, CustomStringConvertible {
         let squareShapeImage = UIImage(named: "square_shape")!
         let squareShapeText = NSLocalizedString("Square Shape", comment: "")
         
-        let imageChoces = [
+        let imageChoices = [
             ORKImageChoice(normalImage: roundShapeImage, selectedImage: nil, text: roundShapeText, value: roundShapeText as NSCoding & NSCopying & NSObjectProtocol),
             ORKImageChoice(normalImage: squareShapeImage, selectedImage: nil, text: squareShapeText, value: squareShapeText as NSCoding & NSCopying & NSObjectProtocol)
         ]
         
-        let answerFormat1 = ORKAnswerFormat.choiceAnswerFormat(with: imageChoces)
+        let answerFormat1 = ORKAnswerFormat.choiceAnswerFormat(with: imageChoices)
         
         let questionStep1 = ORKQuestionStep(identifier: String(describing: Identifier.imageChoiceQuestionStep1), title: NSLocalizedString("Image Choice", comment: ""), question: exampleQuestionText, answer: answerFormat1)
 
         questionStep1.text = exampleDetailText
 
-        let answerFormat2 = ORKAnswerFormat.choiceAnswerFormat(with: imageChoces, style: .singleChoice, vertical: true)
+        let answerFormat2 = ORKAnswerFormat.choiceAnswerFormat(with: imageChoices, style: .singleChoice, vertical: true)
         
         let questionStep2 = ORKQuestionStep(identifier: String(describing: Identifier.imageChoiceQuestionStep2), title: NSLocalizedString("Image Choice", comment: ""), question: exampleQuestionText, answer: answerFormat2)
 
